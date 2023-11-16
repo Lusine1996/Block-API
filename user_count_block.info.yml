@@ -1,0 +1,5 @@
+name: 'User count block'
+type: module
+description: 'Block plugin provides the total user count.'
+package: Custom
+core_version_requirement: ^9 || ^10
