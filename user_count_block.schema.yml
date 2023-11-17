@@ -1,0 +1,10 @@
+block_custom_setting:
+  type: block_settings
+  label: 'Custom Setting'
+mapping:
+  block_custom_setting:
+    type: string
+    label: 'Enter a custom setting for the block.'
+  constraints:
+    - Length:
+        min: 10
