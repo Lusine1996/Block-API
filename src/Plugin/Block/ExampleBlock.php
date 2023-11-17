@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * @file
+ * Creates a block which displays Users' count
+ */
+
 namespace Drupal\user_count_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
@@ -18,7 +23,6 @@ class ExampleBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
-
   public function build()
   {
     $userStorage = \Drupal::entityTypeManager()->getStorage('user');
@@ -34,7 +38,6 @@ class ExampleBlock extends BlockBase {
   }
 
   /**
-
    * {@inheritdoc}
    */
   public function getCacheTags() {
