@@ -3,6 +3,7 @@
 namespace Drupal\user_count_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides an example block.
@@ -44,5 +45,32 @@ class ExampleBlock extends BlockBase {
 
     return $cache_tags;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration()
+  {
+    return [
+      'hello_block_name' => $this->t(''),
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockForm($form, FormStateInterface $form_state)
+  {
+    $form['hello_block_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Who'),
+      '#description' => $this->t('Who do you want to say hello to?'),
+      '#default_value' => $this->configuration['hello_block_name'],
+    ];
+
+    return $form;
+  }
+
+
 
 }
