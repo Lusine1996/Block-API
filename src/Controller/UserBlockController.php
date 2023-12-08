@@ -28,5 +28,3 @@ class UserBlockController extends ControllerBase
   }
 
 }
-
-

@@ -27,7 +27,6 @@ class ExampleBlock extends BlockBase
     $query = $userStorage->getQuery();
     $uids = $query->accessCheck(FALSE)->execute();
 
-
     $build['content'] = [
       '#markup' => $this->t('User count is @count!', ['@count' => count($uids)]),
     ];
@@ -41,6 +40,9 @@ class ExampleBlock extends BlockBase
 
     return $build;
   }
+
+
+
 
   /**
    * {@inheritdoc}
