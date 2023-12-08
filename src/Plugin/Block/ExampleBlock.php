@@ -4,6 +4,7 @@ namespace Drupal\user_count_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Provides an example block.
@@ -14,12 +15,12 @@ use Drupal\Core\Form\FormStateInterface;
  * category = @Translation("User count block")
  * )
  */
-class ExampleBlock extends BlockBase {
+class ExampleBlock extends BlockBase
+{
 
   /**
    * {@inheritdoc}
    */
-
   public function build()
   {
     $userStorage = \Drupal::entityTypeManager()->getStorage('user');
@@ -28,65 +29,29 @@ class ExampleBlock extends BlockBase {
 
 
     $build['content'] = [
-      '#markup' => $this->t('User count is @count!', ['@count' => count($uids)
-      ]),];
-    return $build;
+      '#markup' => $this->t('User count is @count!', ['@count' => count($uids)]),
+    ];
+    $url = Url::fromRoute('user_count_block.change_block');
+    $url->setOption('attributes', ['class' => 'use-ajax']);
+    $build[] = [
+      '#type' => 'link',
+      '#url' => $url,
+      '#title' => $this->t('Change'),
+    ];
 
+    return $build;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getCacheTags() {
+  public function getCacheTags()
+  {
     // Add the user entity cache tag to automatically update the block.
     $cache_tags = parent::getCacheTags();
     $cache_tags[] = 'user_list';
 
     return $cache_tags;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function defaultConfiguration()
-  {
-    return [
-      'block_custom_setting' => $this->t(''),
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function blockForm($form, FormStateInterface $form_state)
-  {
-    $form['block_custom_setting'] = [
-      '#type' => 'textfield',
-      '#description' => $this->t('Enter a custom setting for the block.'),
-      '#default_value' => $this->configuration['block_custom_setting'],
-    ];
-
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function blockSubmit($form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
-    $this->configuration['block_custom_setting'] = $values['block_custom_setting'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function blockValidate( $form, FormStateInterface $form_state) {
-    $value = $form_state->getValue('block_custom_setting');
-
-    // Perform your custom validation logic here.
-    if (strlen($value) < 10) {
-      $form_state->setError($form, $this->t('Custom Setting must be at least 10 characters long.'));
-    }
   }
 
 }

@@ -1,0 +1,7 @@
+user_count_block.change_block:
+  path: '/change-block'
+  defaults:
+    _controller: '\Drupal\user_count_block\Controller\UserBlockController::changeBlock'
+    _title: 'Changing'
+  requirements:
+    _permission: 'access content'
